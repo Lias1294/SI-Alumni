@@ -7,6 +7,7 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <!-- Place favicon.ico in the root directory -->
+        <link rel="icon" type="image/jpeg" href="{{ asset('assets/img/logo.jpg') }}">
 
         <!-- ========================= CSS here ========================= -->
         <link rel="stylesheet" href="{{ url('assets/css/bootstrap-5.0.0-beta1.min.css') }}" />
@@ -113,13 +114,13 @@
         <!-- ========================= hero-section-wrapper-5 start ========================= -->
         <section id="home" class="hero-section-wrapper-5">
             <!-- ========================= header-6 start ========================= -->
-            <header class="header header-6 bg-warning">
+          <header class="header header-6 " style="background:#94dcb7;>
                 <div class="navbar-area">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-lg-12">
                                 <nav class="navbar navbar-expand-lg">
-                                    <a class="navbar-brand" href="#">
+                                    <a class="navbar-brand" href="/">
                                         <img src="{{ url('assets/img/logo.jpg') }}" alt="Logo" width="50" height="50" />
                                     </a>
                                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent6" aria-controls="navbarSupportedContent6" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,9 +134,25 @@
                                             <li class="nav-item">
                                                 <a class="page-scroll {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ url('dashboard') }}">Beranda</a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="page-scroll" href="#">Profile Sekolah</a>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle page-scroll" href="#" id="profileDropdown"
+                                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Profile Sekolah
+                                                </a>
+
+                                                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ url('/sejarah') }}">Sejarah Sekolah</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ url('/visi-misi') }}">Visi & Misi</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ url('/struktur-organisasi') }}">Struktur Organisasi</a>
+                                                    </li>
+                                                </ul>
                                             </li>
+
                                             <li class="nav-item">
                                                 <a class="page-scroll {{ request()->routeIs('lowongan') ? 'active' : '' }}" href="{{ url('lowongan') }}">Lowongan Kerja</a>
                                             </li>
@@ -205,31 +222,40 @@
                                                 @if(in_array($role, ['admin','company']))
                                                     {{-- Admin & Company: dropdown --}}
                                                     <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle
-                                                        {{ request()->routeIs('perusahaan.index','perusahaan.create','perusahaan.edit','perusahaan.show')
-                                                            || request()->routeIs('perusahaan.biodata.index','perusahaan.biodata.show')
-                                                            ? 'active' : '' }}"
-                                                        href="#" id="navPerusahaanDropdown" role="button"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Perusahaan
-                                                    </a>
+                                                        <a class="nav-link dropdown-toggle
+                                                            {{ request()->routeIs('perusahaan.index','perusahaan.create','perusahaan.edit','perusahaan.show')
+                                                                || request()->routeIs('perusahaan.biodata.index','perusahaan.biodata.show')
+                                                                ? 'active' : '' }}"
+                                                            href="#" id="navPerusahaanDropdown" role="button"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Perusahaan
+                                                        </a>
 
-                                                    <ul class="dropdown-menu dropdown-menu-alumni" aria-labelledby="navPerusahaanDropdown" style="min-width: 300px;">
-                                                        <li>
-                                                        <a class="dropdown-item
-                                                            {{ request()->routeIs('perusahaan.index','perusahaan.create','perusahaan.edit','perusahaan.show') ? 'active' : '' }}"
-                                                            href="{{ route('perusahaan.index') }}">
-                                                            <i class="fa-solid fa-users me-2"></i> Data Perusahaan
-                                                        </a>
-                                                        </li>
-                                                        <li class="mt-1">
-                                                        <a class="dropdown-item
-                                                            {{ request()->routeIs('perusahaan.biodata.index','perusahaan.biodata.show') ? 'active' : '' }}"
-                                                            href="{{ route('perusahaan.biodata.index') }}">
-                                                            <i class="fa-solid fa-id-card me-2"></i> Biodata Perusahaan
-                                                        </a>
-                                                        </li>
-                                                    </ul>
+                                                        <ul class="dropdown-menu dropdown-menu-alumni" aria-labelledby="navPerusahaanDropdown" style="min-width: 300px;">
+                                                            <li>
+                                                                <a class="dropdown-item
+                                                                    {{ request()->routeIs('perusahaan.index','perusahaan.create','perusahaan.edit','perusahaan.show') ? 'active' : '' }}"
+                                                                    href="{{ route('perusahaan.index') }}">
+                                                                    <i class="fa-solid fa-users me-2"></i> Data Perusahaan
+                                                                </a>
+                                                            </li>
+                                                            <li class="mt-1">
+                                                                <a class="dropdown-item
+                                                                    {{ request()->routeIs('perusahaan.biodata.index','perusahaan.biodata.show') ? 'active' : '' }}"
+                                                                    href="{{ route('perusahaan.biodata.index') }}">
+                                                                    <i class="fa-solid fa-id-card me-2"></i> Biodata Perusahaan
+                                                                </a>
+                                                            </li>
+                                                            @auth
+                                                                @if(auth()->user()->role === 'company')
+                                                                    <li>
+                                                                    <a class="dropdown-item" href="{{ route('perusahaan.lamaran.index') }}">
+                                                                        <i class="fa-solid fa-file-lines me-2"></i> Lamaran Masuk
+                                                                    </a>
+                                                                    </li>
+                                                                @endif
+                                                            @endauth
+                                                        </ul>
                                                     </li>
                                                 @else
                                                     {{-- Role lain (alumni, siswa, guru): hanya 1 link ke biodata --}}
@@ -242,10 +268,32 @@
                                                 @endif
                                             @endauth
                                             {{-- End Menu Perusahaan --}}
+                                            
+                                            {{-- Start Menu Waka --}}
+                                            @auth
+                                                @if(auth()->user()->role === 'waka')
+                                                    <li class="nav-item dropdown">
+                                                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                                            Waka Sekolah
+                                                        </a>
+
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="{{ route('waka.dashboard') }}">Dashboard</a></li>
+                                                            <li><a class="dropdown-item" href="{{ route('waka.alumni.index') }}">Data Alumni</a></li>
+                                                            <li><a class="dropdown-item" href="{{ route('waka.event.index') }}">Event</a></li>
+                                                            <li><a class="dropdown-item" href="{{ route('waka.lowongan.index') }}">Lowongan Kerja</a></li>
+                                                            <li><a class="dropdown-item" href="{{ route('waka.status.lamaran') }}">Status Lamaran Alumni</a></li>
+                                                        </ul>
+                                                    </li>
+                                                @endif
+                                            @endauth
+                                            {{-- End Menu Waka --}}
 
                                             <li class="nav-item">
-                                                <a class="page-scroll" href="#">Event</a>
+                                                <a class="page-scroll {{ request()->routeIs('events.*') ? 'active' : '' }}"
+                                                    href="{{ route('event.index') }}">Event</a>
                                             </li>
+
                                             {{-- Jika user belum login --}}
                                             @guest
                                                 <li class="nav-item">
@@ -261,7 +309,9 @@
                                                     </a>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a class="dropdown-item text-center" href="#"><i class="fa-solid fa-user me-2"></i>Profil</a>
+                                                            <a class="dropdown-item text-center" href="{{ route('profile.show') }}">
+                                                                <i class="fa-solid fa-user me-2"></i> Profil
+                                                            </a>
                                                         </li>
 
                                                         <li>
