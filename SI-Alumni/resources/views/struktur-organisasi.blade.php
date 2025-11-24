@@ -10,16 +10,16 @@
 
         <style>
             .org-wrapper {
-                max-width: 1100px;
+                max-width: 400px;
                 margin: 0 auto;
             }
 
             /* KOTAK UMUM */
             .org-head,
             .org-card {
-                width: 240px;
+                width: 100%;
                 border-radius: 12px;
-                padding: 15px;
+                padding: 18px;
                 text-align: center;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.08);
                 border: 1px solid #e2e2e3;
@@ -119,68 +119,54 @@
 
         <div class="org-wrapper">
 
-            {{-- LEVEL 1: Kepala Sekolah --}}
-            <div class="org-head-wrap">
-                <div class="org-head">
-                    <strong>Kepala Sekolah</strong><br>
-                    <span class="small">SMK Negeri 1 Belimbing</span>
+            <div class="d-flex flex-column align-items-center gap-4">
+
+                {{-- Kepala Sekolah --}}
+                <div class="org-card" style="max-width:350px;background:#0d6efd;color:#fff;border:none;">
+                    <h5 class="fw-bold mb-1">Kepala Sekolah</h5>
+                    <div class="small">SMK Negeri 1 Belimbing</div>
                 </div>
-            </div>
 
-            {{-- Garis vertikal dari Kepala ke garis horizontal (sekarang tidak nembus card) --}}
-            <div class="v-line-top"></div>
-
-            {{-- LEVEL 2: Garis horizontal & 4 card --}}
-            <div class="org-row">
-                <div class="org-line"></div>
-
-                <div class="org-card">
-                    <strong>Wakil Kepala Sekolah</strong>
+                {{-- Wakil Kepala Sekolah --}}
+                <div class="org-card" style="max-width:350px;">
+                    <h6 class="fw-bold">Wakil Kepala Sekolah</h6>
                     <div class="small text-muted">Bidang Kurikulum</div>
                     <div class="small text-muted">Bidang Kesiswaan</div>
                 </div>
 
-                <div class="org-card">
-                    <strong>Kepala Tata Usaha</strong>
+                {{-- Kepala Tata Usaha --}}
+                <div class="org-card" style="max-width:350px;">
+                    <h6 class="fw-bold">Kepala Tata Usaha</h6>
                     <div class="small text-muted">Staf TU dan Bendahara</div>
                 </div>
 
-                <div class="org-card">
-                    <strong>Ketua Program Keahlian</strong>
+                {{-- Ketua Program Keahlian --}}
+                <div class="org-card" style="max-width:350px;">
+                    <h6 class="fw-bold">Ketua Program Keahlian</h6>
                     <div class="small text-muted">Guru Produktif</div>
                     <div class="small text-muted">Guru Normatif</div>
                 </div>
 
-                <div class="org-card">
-                    <strong>Bimbingan Konseling (BK)</strong>
+                {{-- Bimbingan Konseling --}}
+                <div class="org-card" style="max-width:350px;">
+                    <h6 class="fw-bold">Bimbingan Konseling (BK)</h6>
                     <div class="small text-muted">Pembina Kesiswaan</div>
                 </div>
-            </div>
 
-            {{-- GARIS DARI GARIS PANJANG → UNIT (TAHAP 3) --}}
-            <div class="center-connector"></div>
-
-            {{-- LEVEL 3 – Unit Pendukung Sekolah --}}
-            <div class="connector mb-5">
-                {{-- di sini tidak pakai v-line lagi, karena sudah ada center-connector --}}
-                <div class="org-card">
-                    <strong>Unit Pendukung Sekolah</strong>
+                {{-- Unit Pendukung Sekolah --}}
+                <div class="org-card" style="max-width:350px;">
+                    <h6 class="fw-bold">Unit Pendukung Sekolah</h6>
                     <div class="small text-muted">Perpustakaan</div>
                     <div class="small text-muted">Laboratorium</div>
                     <div class="small text-muted">OSIS / Ekstrakurikuler</div>
                 </div>
-            </div>
 
-            {{-- LEVEL 4 – Komite Sekolah (garis hanya dari Unit) --}}
-            <div class="connector">
-                <div class="v-line"></div>
-                <div class="org-card">
-                    <strong>Komite Sekolah</strong>
+                {{-- Komite Sekolah --}}
+                <div class="org-card" style="max-width:350px;">
+                    <h6 class="fw-bold">Komite Sekolah</h6>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 @endsection
