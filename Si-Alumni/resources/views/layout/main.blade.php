@@ -278,11 +278,9 @@
                                                         </a>
 
                                                         <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="{{ route('waka.dashboard') }}">Dashboard</a></li>
                                                             <li><a class="dropdown-item" href="{{ route('waka.alumni.index') }}">Data Alumni</a></li>
                                                             <li><a class="dropdown-item" href="{{ route('waka.event.index') }}">Event</a></li>
                                                             <li><a class="dropdown-item" href="{{ route('waka.lowongan.index') }}">Lowongan Kerja</a></li>
-                                                            <li><a class="dropdown-item" href="{{ route('waka.status.lamaran') }}">Status Lamaran Alumni</a></li>
                                                         </ul>
                                                     </li>
                                                 @endif
