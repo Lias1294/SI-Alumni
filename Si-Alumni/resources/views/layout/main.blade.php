@@ -88,6 +88,8 @@
             font-weight: 600;
             box-shadow: none;
             }
+
+
         </style>
 
     </head>
@@ -113,8 +115,7 @@
 
         <!-- ========================= hero-section-wrapper-5 start ========================= -->
         <section id="home" class="hero-section-wrapper-5">
-            <!-- ========================= header-6 start ========================= -->
-          <header class="header header-6 " style="background:#94dcb7;>
+            <header class="header header-6" style="background:#90e1b7;>
                 <div class="navbar-area">
                     <div class="container">
                         <div class="row align-items-center">
@@ -184,7 +185,7 @@
                                                             $alumniId = optional($user->alumni)->id
                                                                 ?? \App\Models\Alumni::where('user_id', $user->id)->value('id');
 
-                                                            $dataAlumniUrl = ($user && $user->role === 'admin')
+                                                            $dataAlumniUrl = ($user && in_array($user->role, ['admin', 'waka']))
                                                                 ? route('alumni.index')
                                                                 : ($alumniId ? route('alumni.show', $alumniId) : route('alumni.biodata'));
                                                         @endphp
@@ -203,13 +204,15 @@
                                                             </a>
                                                         </li>
 
-                                                        <li><hr class="dropdown-divider"></li>
+                                                        @if(auth()->user()->role === 'alumni')
+                                                            <li><hr class="dropdown-divider"></li>
 
-                                                        <li>
-                                                            <a class="dropdown-item {{ request()->routeIs('lamaran.*') ? 'active' : '' }}" href="{{ url('lamaran') }}">
-                                                                <i class="fa-solid fa-briefcase me-2"></i> Riwayat Lamaran
-                                                            </a>
-                                                        </li>
+                                                            <li>
+                                                                <a class="dropdown-item {{ request()->routeIs('lamaran.*') ? 'active' : '' }}" href="{{ url('lamaran') }}">
+                                                                    <i class="fa-solid fa-briefcase me-2"></i> Riwayat Lamaran
+                                                                </a>
+                                                            </li>
+                                                        @endif
                                                     </ul>
                                                 </li>
                                             @endauth
@@ -260,37 +263,30 @@
                                                 @else
                                                     {{-- Role lain (alumni, siswa, guru): hanya 1 link ke biodata --}}
                                                     <li class="nav-item">
-                                                    <a class="nav-link {{ request()->routeIs('perusahaan.biodata.index','perusahaan.biodata.show') ? 'active' : '' }}"
-                                                        href="{{ route('perusahaan.biodata.index') }}">
-                                                        Perusahaan
-                                                    </a>
+                                                        <a class="nav-link {{ request()->routeIs('perusahaan.biodata.index','perusahaan.biodata.show') ? 'active' : '' }}"
+                                                            href="{{ route('perusahaan.biodata.index') }}">
+                                                            Perusahaan
+                                                        </a>
                                                     </li>
                                                 @endif
                                             @endauth
                                             {{-- End Menu Perusahaan --}}
-                                            
-                                            {{-- Start Menu Waka --}}
-                                            @auth
-                                                @if(auth()->user()->role === 'waka')
-                                                    <li class="nav-item dropdown">
-                                                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                                            Waka Sekolah
-                                                        </a>
-
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="{{ route('waka.alumni.index') }}">Data Alumni</a></li>
-                                                            <li><a class="dropdown-item" href="{{ route('waka.event.index') }}">Event</a></li>
-                                                            <li><a class="dropdown-item" href="{{ route('waka.lowongan.index') }}">Lowongan Kerja</a></li>
-                                                        </ul>
-                                                    </li>
-                                                @endif
-                                            @endauth
-                                            {{-- End Menu Waka --}}
 
                                             <li class="nav-item">
                                                 <a class="page-scroll {{ request()->routeIs('events.*') ? 'active' : '' }}"
                                                     href="{{ route('event.index') }}">Event</a>
                                             </li>
+
+                                            @auth
+                                                @if(in_array(Auth::user()->role, ['admin', 'waka']))
+                                                    <li class="nav-item">
+                                                        <a class="page-scroll {{ request()->routeIs('admin.questionnaire.*') ? 'active' : '' }}"
+                                                        href="{{ route('admin.questionnaire.index') }}">
+                                                        Kuesioner
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endauth
 
                                             {{-- Jika user belum login --}}
                                             @guest
